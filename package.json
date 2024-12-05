@@ -1,12 +1,14 @@
 {
-  "name": "date-filter",
-  "version": "0.0.1",
+  "name": "@angulartoolsdr/date-filter",
+  "version": "18.2.0",
   "peerDependencies": {
-    "@angular/common": "^18.2.0",
-    "@angular/core": "^18.2.0"
+    "@angular/common": "^18.2.12",
+    "@angulartoolsdr/control-material": "^18.2.0"
   },
   "dependencies": {
+    "@angular/forms": "^18.2.12",
+    "moment": "^2.30.1",
+    "ngx-toastr": "^19.0.0",
     "tslib": "^2.3.0"
-  },
-  "sideEffects": false
+  }
 }

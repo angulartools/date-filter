@@ -5,8 +5,10 @@
     "entryFile": "src/public-api.ts"
   },
   "allowedNonPeerDependencies": [
-    "angular/core",
-    "angular/forms",
+    "@angular/core",
+    "@angular/forms",
+    "@angular/animations",
+    "@angular/platform-browser",
     "moment",
     "ngx-toastr"
   ]

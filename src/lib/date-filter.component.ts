@@ -1,5 +1,5 @@
 import { Component, EventEmitter, inject, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators, FormsModule } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import moment from 'moment';
 import { GlobalUtil } from './global-util';
 import { MatSelectionList, MatListOption } from '@angular/material/list';
@@ -15,7 +15,7 @@ import { ToastrService } from 'ngx-toastr';
     templateUrl: './date-filter.component.html',
     styleUrls: ['./date-filter.component.scss'],
     standalone: true,
-    imports: [MatButton, MatMenuTrigger, MatIcon, ControlMaterialDateTimeComponent, FormsModule, MatMenu, MatSelectionList, MatListOption, TranslateModule]
+    imports: [ReactiveFormsModule, MatButton, MatMenuTrigger, MatIcon, ControlMaterialDateTimeComponent, FormsModule, MatMenu, MatSelectionList, MatListOption, TranslateModule]
 })
 export class DateFilterComponent implements OnInit {
 
@@ -46,6 +46,9 @@ export class DateFilterComponent implements OnInit {
 
   toastrService = inject(ToastrService);
   translate = inject(TranslateService);
+
+  dataInicio;
+  dataFim;
 
   constructor(private formBuilder: UntypedFormBuilder) {}
 

@@ -9,6 +9,7 @@
     "@angular/forms",
     "@angular/animations",
     "@angular/platform-browser",
+    "@angulartoolsdr/control-material",
     "moment",
     "ngx-toastr"
   ]

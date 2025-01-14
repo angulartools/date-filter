@@ -1,0 +1,50 @@
+<div class="d-inline-flex">
+  <div class="d-block">
+    <button type="button" style="box-shadow: none; margin-top: 2px" mat-raised-button class="menuTrigger" [matMenuTriggerFor]="periodos_menu" [disabled]="loading || disabled">
+      @if (loading) {
+        <span class="ml-1 fa-1x">
+          <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+      }
+      {{'PERIODO' | translate}} <mat-icon>arrow_drop_down</mat-icon>
+    </button>
+    @if (filtroPeriodo?.id !== undefined && filtroPeriodo?.id !== null && filtroPeriodo?.id !== PERIODO_INTERVALO) {
+      <div style="font-size: 12px; text-align: center; position: relative; top: -10px; margin-left: -15px;" class="text-muted">{{filtroPeriodo?.label | translate}}</div>
+    }
+    @if (filtroPeriodo?.id !== undefined && filtroPeriodo?.id !== null && filtroPeriodo?.id === PERIODO_INTERVALO) {
+      <div style="font-size: 12px; text-align: center; position: relative; top: -10px; margin-left: -15px;" class="text-muted">{{labelDataMaximaPossivel | translate }}</div>
+    }
+  </div>
+
+  @if (filtroPeriodo?.id === PERIODO_INTERVALO) {
+    <div style="width: 180px; margin-bottom: -18px; margin-top: 5px;">
+      <lib-control-material-date-time label="{{'FILTRO_DE' | translate}} (>=)"
+        [disabled]="loading || disabled" [showTime]="false" [smaller]="true" (selectDate)="selecionarDataInicio($event)"
+        [minDate]="minDateInicio" [maxDate]="maxDateInicio">
+        <input [(ngModel)]="formGroup.get('dataInicio').value" />
+      </lib-control-material-date-time>
+    </div>
+  }
+
+  @if (filtroPeriodo?.id === PERIODO_INTERVALO) {
+    <div style="width: 180px; margin-left: 10px; margin-bottom: -18px; margin-top: 5px;">
+      <lib-control-material-date-time label="{{'FILTRO_ATE' | translate}} (&lt;)"
+        [disabled]="loading || disabled" [showTime]="false" [smaller]="true" (selectDate)="selecionarDataFim($event)"
+        [minDate]="minDateFim" [maxDate]="maxDateFim">
+        <input [(ngModel)]="formGroup.get('dataFim').value" />
+      </lib-control-material-date-time>
+    </div>
+  }
+</div>
+<mat-menu #periodos_menu="matMenu">
+  <mat-selection-list #selectable>
+    @for (periodo of filtroPeriodos; track periodo) {
+      <mat-list-option checkboxPosition="before" [selected]="periodo.selected" [value]="periodo"
+        (click)="selectPeriodo(periodo, periodo.selected)">
+        <span style="font-size: .8rem;">
+          {{periodo.label | translate}}
+        </span>
+      </mat-list-option>
+    }
+  </mat-selection-list>
+</mat-menu>

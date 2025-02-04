@@ -3,7 +3,7 @@ import { UntypedFormBuilder, UntypedFormGroup, Validators, FormsModule, Reactive
 import moment from 'moment';
 import { GlobalUtil } from './global-util';
 import { MatSelectionList, MatListOption } from '@angular/material/list';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslationPipe, TranslationService } from '@angulartoolsdr/translation';
 import { ControlMaterialDateTimeComponent } from '@angulartoolsdr/control-material';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenuTrigger, MatMenu } from '@angular/material/menu';
@@ -14,7 +14,7 @@ import { ToastrService } from 'ngx-toastr';
     selector: 'lib-date-filter',
     templateUrl: './date-filter.component.html',
     styleUrls: ['./date-filter.component.scss'],
-    imports: [ReactiveFormsModule, MatButton, MatMenuTrigger, MatIcon, ControlMaterialDateTimeComponent, FormsModule, MatMenu, MatSelectionList, MatListOption, TranslateModule]
+    imports: [ReactiveFormsModule, MatButton, MatMenuTrigger, MatIcon, ControlMaterialDateTimeComponent, FormsModule, MatMenu, MatSelectionList, MatListOption, TranslationPipe]
 })
 export class DateFilterComponent implements OnInit {
 
@@ -44,7 +44,7 @@ export class DateFilterComponent implements OnInit {
   filtroDatasSelecionado;
 
   toastrService = inject(ToastrService);
-  translate = inject(TranslateService);
+  translate = inject(TranslationService);
 
   dataInicio;
   dataFim;

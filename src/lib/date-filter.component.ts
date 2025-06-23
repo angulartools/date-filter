@@ -62,11 +62,17 @@ export class DateFilterComponent implements OnInit {
   }
 
   inicializarValores() {
-    if (this.filtroSelecionado?.id != undefined && this.filtroSelecionado?.id !== null) {
+    if (this.filtroSelecionado?.id != null) {
       this.filtroPeriodo = this.filtroPeriodos.find(item => item.id === this.filtroSelecionado.id);
-      this.filtroPeriodo.selected = true;
-      if (this.filtroPeriodo.id === this.PERIODO_INTERVALO) {
-        this.formGroup.get('dataFim')?.setValue(GlobalUtil.getMaxDate(new Date()));
+      if (this.filtroPeriodo != null) {
+        this.formGroup.get('periodo')?.setValue(this.filtroPeriodo);
+        this.filtroPeriodo.selected = true;
+        if (this.filtroPeriodo.id === this.PERIODO_INTERVALO) {
+          this.formGroup.get('dataFim')?.setValue(GlobalUtil.getMaxDate(new Date()));
+        } else {
+          this.formGroup.get('dataInicio')?.setValue(this.filtroPeriodo.dataInicio);
+          this.formGroup.get('dataFim')?.setValue(this.filtroPeriodo.dataFim);
+        }
       }
     }
     if (this.intervaloMaximo1Mes) {

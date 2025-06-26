@@ -88,6 +88,9 @@ export class DateFilterComponent implements OnInit {
     if (oldValue) {
       periodo.selected = false;
       this.filtroPeriodo = null;
+      this.formGroup.get('periodo')?.setValue(null);
+      this.formGroup.get('dataInicio')?.setValue(null);
+      this.formGroup.get('dataFim')?.setValue(null);
       this.limpar.emit();
       return;
     } else {

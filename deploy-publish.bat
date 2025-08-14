@@ -18,13 +18,16 @@ git push
 REM 3. Executar ng build, se der erro, roda npm i --force e tenta de novo
 echo Rodando ng build...
 ng build
-if errorlevel 1 (
+set "BUILD_STATUS=%ERRORLEVEL%"
+if not "%BUILD_STATUS%"=="0" (
     echo ng build falhou, rodando npm i --force...
     npm i --force
     echo Tentando ng build novamente...
     ng build
-    if errorlevel 1 (
+    set "BUILD_STATUS=%ERRORLEVEL%"
+    if not "%BUILD_STATUS%"=="0" (
         echo ng build falhou novamente. Abortando script.
+        pause
         exit /b 1
     )
 )

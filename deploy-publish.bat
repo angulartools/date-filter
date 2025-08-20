@@ -15,22 +15,11 @@ git add .
 git commit -m "Update Version"
 git push
 
-REM 3. Executar ng build, se der erro, roda npm i --force e tenta de novo
-echo Rodando ng build...
-ng build
-set "BUILD_STATUS=%ERRORLEVEL%"
-if not "%BUILD_STATUS%"=="0" (
-    echo ng build falhou, rodando npm i --force...
-    npm i --force
-    echo Tentando ng build novamente...
-    ng build
-    set "BUILD_STATUS=%ERRORLEVEL%"
-    if not "%BUILD_STATUS%"=="0" (
-        echo ng build falhou novamente. Abortando script.
-        pause
-        exit /b 1
-    )
-)
+REM 3. Executar npm i e ng build
+echo Rodando npm i...
+call npm i --force
+echo rodando ng build...
+call npx ng build
 
 REM 4. Pega o nome da pasta atual
 for %%I in ("%cd%") do set "CUR_DIR=%%~nxI"

@@ -38,7 +38,7 @@
 </div>
 <mat-menu #periodos_menu="matMenu">
   <mat-selection-list #selectable>
-    @for (periodo of filtroPeriodos; track periodo) {
+    @for (periodo of filtroPeriodos; track periodo.id) {
       <mat-list-option checkboxPosition="before" [selected]="periodo.selected" [value]="periodo"
         (click)="selectPeriodo(periodo, periodo.selected)">
         <span style="font-size: .8rem;">

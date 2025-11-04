@@ -12,11 +12,11 @@ import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'lib-date-filter',
-    templateUrl: './date-filter.component.html',
-    styleUrls: ['./date-filter.component.scss'],
+    templateUrl: './date-filter.html',
+    styleUrls: ['./date-filter.scss'],
     imports: [ReactiveFormsModule, MatButton, MatMenuTrigger, MatIcon, ControlMaterialDateTimeComponent, FormsModule, MatMenu, MatSelectionList, MatListOption, TranslationPipe]
 })
-export class DateFilterComponent implements OnInit {
+export class DateFilter implements OnInit {
 
   @Input() filtroSelecionado;
   @Input() loading = false;

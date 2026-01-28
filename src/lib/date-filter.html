@@ -6,7 +6,7 @@
           <i class="fas fa-circle-notch fa-spin"></i>
         </span>
       }
-      {{'PERIODO' | translate}} <mat-icon>arrow_drop_down</mat-icon>
+      {{'PERIODO' | translate}} <i class="fa fa-angle-down fa-xs"></i>
     </button>
     @if (filtroPeriodo?.id !== undefined && filtroPeriodo?.id !== null && filtroPeriodo?.id !== PERIODO_INTERVALO) {
       <div style="font-size: 12px; text-align: center; position: relative; top: -10px; margin-left: -15px;" class="text-muted">{{filtroPeriodo?.label | translate}}</div>

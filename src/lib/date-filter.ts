@@ -1,20 +1,19 @@
 import { Component, EventEmitter, inject, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule  } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import moment from 'moment';
 import { GlobalUtil } from './global-util';
 import { MatSelectionList, MatListOption } from '@angular/material/list';
 import { TranslationPipe, TranslationService } from '@angulartoolsdr/translation';
 import { ControlMaterialDateTimeComponent } from '@angulartoolsdr/control-material';
-import { MatIcon } from '@angular/material/icon';
 import { MatMenuTrigger, MatMenu } from '@angular/material/menu';
 import { MatButton } from '@angular/material/button';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-    selector: 'lib-date-filter',
-    templateUrl: './date-filter.html',
-    styleUrls: ['./date-filter.scss'],
-    imports: [ReactiveFormsModule, MatButton, MatMenuTrigger, MatIcon, ControlMaterialDateTimeComponent, FormsModule, MatMenu, MatSelectionList, MatListOption, TranslationPipe]
+  selector: 'lib-date-filter',
+  templateUrl: './date-filter.html',
+  styleUrls: ['./date-filter.scss'],
+  imports: [ReactiveFormsModule, MatButton, MatMenuTrigger, ControlMaterialDateTimeComponent, FormsModule, MatMenu, MatSelectionList, MatListOption, TranslationPipe]
 })
 export class DateFilter implements OnInit {
 
@@ -49,7 +48,7 @@ export class DateFilter implements OnInit {
   dataInicio;
   dataFim;
 
-  constructor(private formBuilder: UntypedFormBuilder) {}
+  constructor(private formBuilder: UntypedFormBuilder) { }
 
   ngOnInit() {
     this.formGroup = this.formBuilder.group({
@@ -117,7 +116,7 @@ export class DateFilter implements OnInit {
   }
 
   buscar() {
-    let filtro = {dataInicio: null, dataFim: null, dataInicioFiltro: null, dataFimFiltro: null};
+    let filtro = { dataInicio: null, dataFim: null, dataInicioFiltro: null, dataFimFiltro: null };
 
     if (!this.isIntervaloDataValido()) {
       return;

@@ -7,7 +7,7 @@ import { TranslationPipe, TranslationService } from '@angulartoolsdr/translation
 import { ControlMaterialDateTimeComponent } from '@angulartoolsdr/control-material';
 import { MatMenuTrigger, MatMenu } from '@angular/material/menu';
 import { MatButton } from '@angular/material/button';
-import { ToastrService } from 'ngx-toastr';
+import { SnackNotificationService } from '@angulartoolsdr/shared-utils';
 
 @Component({
   selector: 'lib-date-filter',
@@ -42,7 +42,7 @@ export class DateFilter implements OnInit {
   filtroPeriodo = null;
   filtroDatasSelecionado;
 
-  toastrService = inject(ToastrService);
+  toastrService = inject(SnackNotificationService);
   translate = inject(TranslationService);
 
   dataInicio;

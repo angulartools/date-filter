@@ -10,7 +10,7 @@
     "@angular/animations",
     "@angular/platform-browser",
     "@angulartoolsdr/control-material",
-    "moment",
-    "ngx-toastr"
+    "@angulartoolsdr/shared-utils",
+    "moment"
   ]
 }

@@ -1,4 +1,5 @@
-.mat-mdc-list-base .mat-mdc-list-item, .mat-list-base .mat-list-option {
+.mat-mdc-list-base .mat-mdc-list-item,
+.mat-list-base .mat-list-option {
   height: auto !important;
   padding-bottom: 5px;
   padding-top: 5px;
@@ -18,19 +19,19 @@
 }
 
 .hover-primary:hover {
-color: var(--theme-primary-300);
+  color: var(--theme-primary-300);
 }
 
 .hover-warn:hover {
-color: var(--red);
+  color: var(--red);
 }
 
 .hover-accent:hover {
-color: var(--theme-accent-300);
+  color: var(--theme-accent-300);
 }
 
 .badge {
-margin-right: 0.2em !important;
+  margin-right: 0.2em !important;
 }
 
 .menuTrigger {

@@ -1,18 +1,19 @@
-import { Component, EventEmitter, inject, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import moment from 'moment';
-import { GlobalUtil } from './global-util';
+import moment from 'moment-timezone';
 import { MatSelectionList, MatListOption } from '@angular/material/list';
 import { TranslationPipe, TranslationService } from '@angulartoolsdr/translation';
 import { ControlMaterialDateTimeComponent } from '@angulartoolsdr/control-material';
 import { MatMenuTrigger, MatMenu } from '@angular/material/menu';
 import { MatButton } from '@angular/material/button';
+import { GlobalUtil } from './global-util';
 import { SnackNotificationService } from '@angulartoolsdr/shared-utils';
 
 @Component({
   selector: 'lib-date-filter',
   templateUrl: './date-filter.html',
   styleUrls: ['./date-filter.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [ReactiveFormsModule, MatButton, MatMenuTrigger, ControlMaterialDateTimeComponent, FormsModule, MatMenu, MatSelectionList, MatListOption, TranslationPipe]
 })
 export class DateFilter implements OnInit {
@@ -67,7 +68,7 @@ export class DateFilter implements OnInit {
         this.formGroup.get('periodo')?.setValue(this.filtroPeriodo);
         this.filtroPeriodo.selected = true;
         if (this.filtroPeriodo.id === this.PERIODO_INTERVALO) {
-          this.formGroup.get('dataFim')?.setValue(GlobalUtil.getMaxDate(new Date()));
+          this.formGroup.get('dataFim')?.setValue(GlobalUtil.getMaxNextDate(new Date()));
         } else {
           this.formGroup.get('dataInicio')?.setValue(this.filtroPeriodo.dataInicio);
           this.formGroup.get('dataFim')?.setValue(this.filtroPeriodo.dataFim);
@@ -96,9 +97,11 @@ export class DateFilter implements OnInit {
       periodo.selected = true;
     }
     if (this.filtroPeriodo?.id !== periodo.id) {
+      this.formGroup.get('periodo')?.setValue(periodo);
+      this.filtroPeriodo = periodo;
       if (periodo.id === this.PERIODO_INTERVALO) {
         this.formGroup.get('dataInicio')?.setValue(null);
-        this.formGroup.get('dataFim')?.setValue(GlobalUtil.getMaxDate(new Date()));
+        this.formGroup.get('dataFim')?.setValue(GlobalUtil.getMaxNextDate(new Date()));
         periodo.dataInicio = this.formGroup.get('dataInicio')?.value;
         periodo.dataFim = this.formGroup.get('dataFim')?.value;
         this.formGroup.get('dataInicio').setValidators([Validators.required]);
@@ -106,58 +109,11 @@ export class DateFilter implements OnInit {
       } else {
         this.formGroup.get('dataInicio').clearValidators();
         this.formGroup.get('dataFim').clearValidators();
+        this.filtrar.emit(this.getDatasAtualizadas());
       }
       this.formGroup.get('dataInicio').updateValueAndValidity();
       this.formGroup.get('dataFim').updateValueAndValidity();
-      this.formGroup.get('periodo')?.setValue(periodo);
-      this.filtroPeriodo = periodo;
-      this.filtrar.emit(periodo);
     }
-  }
-
-  buscar() {
-    let filtro = { dataInicio: null, dataFim: null, dataInicioFiltro: null, dataFimFiltro: null };
-
-    if (!this.isIntervaloDataValido()) {
-      return;
-    }
-
-    if (this.filtroPeriodo.id === GlobalUtil.PERIODO_INTERVALO) {
-      const dataInicio = this.formGroup.get('dataInicio').value;
-      filtro.dataInicio = new Date(dataInicio.getFullYear(), dataInicio.getMonth(), dataInicio.getDate()).toISOString().slice(0, 16);
-      const dataFim = this.formGroup.get('dataFim').value;
-      filtro.dataFim = new Date(dataFim.getFullYear(), dataFim.getMonth(), dataFim.getDate()).toISOString().slice(0, 16);
-
-      filtro.dataInicioFiltro = moment.utc(filtro.dataInicio).local().format("DD/MM/YYYY");
-      filtro.dataFimFiltro = moment.utc(dataFim).local().format("DD/MM/YYYY");
-
-    } else {
-
-      // Atualizar datas
-      const listaPeriodo = GlobalUtil.getPeriods(new Date());
-      for (let i = 0; i < listaPeriodo.length; i++) {
-        if (listaPeriodo[i].id === this.filtroPeriodo.id) {
-          filtro.dataInicio = listaPeriodo[i].dataInicio;
-          filtro.dataFim = listaPeriodo[i].dataFim;
-          break;
-        }
-      }
-
-      filtro.dataInicioFiltro = moment.utc(filtro.dataInicio).local().format("DD/MM/YYYY");
-      filtro.dataFimFiltro = moment.utc(filtro.dataFim).local().format("DD/MM/YYYY");
-    }
-
-    if (this.filtroPeriodo.id === GlobalUtil.PERIODO_ONTEM || this.filtroPeriodo.id === GlobalUtil.PERIODO_HOJE || this.filtroPeriodo.id >= GlobalUtil.PERIODO_MES) {
-      filtro.dataInicio = moment.utc(filtro.dataInicio).local().format("YYYY-MM-DD") + 'T00:00'
-      filtro.dataFim = moment.utc(filtro.dataFim).local().format("YYYY-MM-DD") + 'T00:00'
-    } else {
-      filtro.dataInicio = new Date(filtro.dataInicio.getFullYear(), filtro.dataInicio.getMonth(), filtro.dataInicio.getDate(), filtro.dataInicio.getHours(), filtro.dataInicio.getMinutes(), filtro.dataInicio.getSeconds(), filtro.dataInicio.getMilliseconds()).toISOString().slice(0, 23);
-      filtro.dataFim = new Date(filtro.dataFim.getFullYear(), filtro.dataFim.getMonth(), filtro.dataFim.getDate(), filtro.dataFim.getHours(), filtro.dataFim.getMinutes(), filtro.dataFim.getSeconds(), filtro.dataFim.getMilliseconds()).toISOString().slice(0, 23);
-    }
-
-    this.filtroDatasSelecionado = filtro;
-
-    this.filtrar.emit(filtro);
   }
 
   isIntervaloDataValido() {
@@ -195,7 +151,7 @@ export class DateFilter implements OnInit {
         return false;
       }
 
-      if (dataFim > GlobalUtil.getMaxDate(new Date())) {
+      if (dataFim > GlobalUtil.getMaxNextDate(new Date())) {
         this.toastrService.warning(this.translate.instant('DATA_MAIOR_DIA_HOJE'));
         return false;
       }
@@ -208,6 +164,15 @@ export class DateFilter implements OnInit {
     }
 
     return true;
+  }
+
+  getDatasAtualizadas() {
+    if (this.filtroPeriodo?.id !== GlobalUtil.PERIODO_INTERVALO) {
+      const periodoAtualizado = GlobalUtil.getPeriods(new Date()).find(item => item.id === this.filtroPeriodo.id);
+      this.filtroPeriodo.dataInicio = periodoAtualizado.dataInicio;
+      this.filtroPeriodo.dataFim = periodoAtualizado.dataFim;
+    }
+    return this.filtroPeriodo;
   }
 
   limparSelecao() {

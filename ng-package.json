@@ -7,10 +7,9 @@
   "allowedNonPeerDependencies": [
     "@angular/core",
     "@angular/forms",
-    "@angular/animations",
     "@angular/platform-browser",
     "@angulartoolsdr/control-material",
     "@angulartoolsdr/shared-utils",
-    "moment"
+    "moment-timezone"
   ]
 }

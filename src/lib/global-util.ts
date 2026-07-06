@@ -23,27 +23,49 @@ export abstract class GlobalUtil {
     return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23, 59, 59, 59);
   }
 
+  static getMaxNextDate(date: Date) {
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1, 0, 0, 0, 0);
+  }
+
   static getPeriods(data) {
     return [
-      { id: this.PERIODO_6H, nickname:'6H', label: 'ULTIMAS_6_HORAS', dataInicio: new Date(data.getFullYear(), data.getMonth(), data.getDate(), data.getHours()-6, data.getMinutes(), data.getSeconds(), data.getMilliseconds()),
-                             dataFim: new Date(data.getFullYear(), data.getMonth(), data.getDate(), data.getHours(), data.getMinutes(), data.getSeconds(), data.getMilliseconds())},
-      { id: this.PERIODO_12H, nickname:'12H', label: 'ULTIMAS_12_HORAS', dataInicio: new Date(data.getFullYear(), data.getMonth(), data.getDate(), data.getHours()-12, data.getMinutes(), data.getSeconds(), data.getMilliseconds()),
-                              dataFim: new Date(data.getFullYear(), data.getMonth(), data.getDate(), data.getHours(), data.getMinutes(), data.getSeconds(), data.getMilliseconds())},
-      { id: this.PERIODO_24H, nickname:'24H', label: 'ULTIMAS_24_HORAS', dataInicio: new Date(data.getFullYear(), data.getMonth(), data.getDate()-1, data.getHours(), data.getMinutes(), data.getSeconds(), data.getMilliseconds()),
-                              dataFim: new Date(data.getFullYear(), data.getMonth(), data.getDate(), data.getHours(), data.getMinutes(), data.getSeconds(), data.getMilliseconds())},
-      { id: this.PERIODO_HOJE, nickname:'HOJE', label: 'HOJE', dataInicio: new Date(data.getFullYear(), data.getMonth(), data.getDate()),
-                              dataFim: new Date(data.getFullYear(), data.getMonth(), data.getDate()+1)},
-      { id: this.PERIODO_ONTEM, nickname:'ONTEM', label: 'ONTEM', dataInicio: new Date(data.getFullYear(), data.getMonth(), data.getDate()-1),
-                              dataFim: new Date(data.getFullYear(), data.getMonth(), data.getDate())},
-      { id: this.PERIODO_SETE_DIAS, nickname:'7DIAS', label: 'ULTIMOS_7_DIAS', dataInicio: new Date(data.getFullYear(), data.getMonth(), data.getDate()-7,  data.getHours(), data.getMinutes(), data.getSeconds(), data.getMilliseconds()),
-                              dataFim: new Date(data.getFullYear(), data.getMonth(), data.getDate(),  data.getHours(), data.getMinutes(), data.getSeconds(), data.getMilliseconds())},
-       { id: this.PERIODO_QUINZE_DIAS, nickname:'15DIAS', label: 'ULTIMOS_15_DIAS', dataInicio: new Date(data.getFullYear(), data.getMonth(), data.getDate()-15,  data.getHours(), data.getMinutes(), data.getSeconds(), data.getMilliseconds()),
-                             dataFim: new Date(data.getFullYear(), data.getMonth(), data.getDate(),  data.getHours(), data.getMinutes(), data.getSeconds(), data.getMilliseconds())},
-       { id: this.PERIODO_TRINTA_DIAS, nickname:'30DIAS', label: 'ULTIMOS_30_DIAS', dataInicio: new Date(data.getFullYear(), data.getMonth(), data.getDate()-30,  data.getHours(), data.getMinutes(), data.getSeconds(), data.getMilliseconds()),
-                              dataFim: new Date(data.getFullYear(), data.getMonth(), data.getDate(),  data.getHours(), data.getMinutes(), data.getSeconds(), data.getMilliseconds())},
-       { id: this.PERIODO_MES, nickname:'MESP', label: 'MES_PASSADO', dataInicio: new Date(data.getFullYear(), data.getMonth()-1, 1),
-                              dataFim: new Date(data.getFullYear(), data.getMonth(), 1)},
-       { id: this.PERIODO_INTERVALO, nickname:'INT', label: 'INTERVALO', dataInicio: null, dataFim: null },
+      {
+        id: this.PERIODO_6H, nickname: '6H', label: 'ULTIMAS_6_HORAS', dataInicio: new Date(data.getFullYear(), data.getMonth(), data.getDate(), data.getHours() - 6, data.getMinutes(), data.getSeconds(), data.getMilliseconds()),
+        dataFim: new Date(data.getFullYear(), data.getMonth(), data.getDate(), data.getHours(), data.getMinutes(), data.getSeconds(), data.getMilliseconds())
+      },
+      {
+        id: this.PERIODO_12H, nickname: '12H', label: 'ULTIMAS_12_HORAS', dataInicio: new Date(data.getFullYear(), data.getMonth(), data.getDate(), data.getHours() - 12, data.getMinutes(), data.getSeconds(), data.getMilliseconds()),
+        dataFim: new Date(data.getFullYear(), data.getMonth(), data.getDate(), data.getHours(), data.getMinutes(), data.getSeconds(), data.getMilliseconds())
+      },
+      {
+        id: this.PERIODO_24H, nickname: '24H', label: 'ULTIMAS_24_HORAS', dataInicio: new Date(data.getFullYear(), data.getMonth(), data.getDate() - 1, data.getHours(), data.getMinutes(), data.getSeconds(), data.getMilliseconds()),
+        dataFim: new Date(data.getFullYear(), data.getMonth(), data.getDate(), data.getHours(), data.getMinutes(), data.getSeconds(), data.getMilliseconds())
+      },
+      {
+        id: this.PERIODO_HOJE, nickname: 'HOJE', label: 'HOJE', dataInicio: new Date(data.getFullYear(), data.getMonth(), data.getDate()),
+        dataFim: new Date(data.getFullYear(), data.getMonth(), data.getDate() + 1)
+      },
+      {
+        id: this.PERIODO_ONTEM, nickname: 'ONTEM', label: 'ONTEM', dataInicio: new Date(data.getFullYear(), data.getMonth(), data.getDate() - 1),
+        dataFim: new Date(data.getFullYear(), data.getMonth(), data.getDate())
+      },
+      {
+        id: this.PERIODO_SETE_DIAS, nickname: '7DIAS', label: 'ULTIMOS_7_DIAS', dataInicio: new Date(data.getFullYear(), data.getMonth(), data.getDate() - 7, data.getHours(), data.getMinutes(), data.getSeconds(), data.getMilliseconds()),
+        dataFim: new Date(data.getFullYear(), data.getMonth(), data.getDate(), data.getHours(), data.getMinutes(), data.getSeconds(), data.getMilliseconds())
+      },
+      {
+        id: this.PERIODO_QUINZE_DIAS, nickname: '15DIAS', label: 'ULTIMOS_15_DIAS', dataInicio: new Date(data.getFullYear(), data.getMonth(), data.getDate() - 15, data.getHours(), data.getMinutes(), data.getSeconds(), data.getMilliseconds()),
+        dataFim: new Date(data.getFullYear(), data.getMonth(), data.getDate(), data.getHours(), data.getMinutes(), data.getSeconds(), data.getMilliseconds())
+      },
+      {
+        id: this.PERIODO_TRINTA_DIAS, nickname: '30DIAS', label: 'ULTIMOS_30_DIAS', dataInicio: new Date(data.getFullYear(), data.getMonth(), data.getDate() - 30, data.getHours(), data.getMinutes(), data.getSeconds(), data.getMilliseconds()),
+        dataFim: new Date(data.getFullYear(), data.getMonth(), data.getDate(), data.getHours(), data.getMinutes(), data.getSeconds(), data.getMilliseconds())
+      },
+      {
+        id: this.PERIODO_MES, nickname: 'MESP', label: 'MES_PASSADO', dataInicio: new Date(data.getFullYear(), data.getMonth() - 1, 1),
+        dataFim: new Date(data.getFullYear(), data.getMonth(), 1)
+      },
+      { id: this.PERIODO_INTERVALO, nickname: 'INT', label: 'INTERVALO', dataInicio: null, dataFim: null, isSelecaoPeriodo: true },
     ];
   }
 }

@@ -8,10 +8,10 @@
       }
       {{'PERIODO' | translate}} <i class="fa fa-angle-down fa-xs"></i>
     </button>
-    @if (filtroPeriodo?.id !== undefined && filtroPeriodo?.id !== null && filtroPeriodo?.id !== PERIODO_INTERVALO) {
+    @if (filtroPeriodo?.id != null && filtroPeriodo?.id != PERIODO_INTERVALO) {
       <div style="font-size: 12px; text-align: center; position: relative; top: -10px; margin-left: -15px;" class="text-muted">{{filtroPeriodo?.label | translate}}</div>
     }
-    @if (filtroPeriodo?.id !== undefined && filtroPeriodo?.id !== null && filtroPeriodo?.id === PERIODO_INTERVALO) {
+    @if (filtroPeriodo?.id != null && filtroPeriodo?.id === PERIODO_INTERVALO) {
       <div style="font-size: 12px; text-align: center; position: relative; top: -10px; margin-left: -15px;" class="text-muted">{{labelDataMaximaPossivel | translate }}</div>
     }
   </div>
@@ -39,7 +39,7 @@
 <mat-menu #periodos_menu="matMenu">
   <mat-selection-list #selectable>
     @for (periodo of filtroPeriodos; track periodo.id) {
-      <mat-list-option checkboxPosition="before" [selected]="periodo.selected" [value]="periodo"
+      <mat-list-option togglePosition="before" [selected]="periodo.selected" [value]="periodo"
         (click)="selectPeriodo(periodo, periodo.selected)">
         <span style="font-size: .8rem;">
           {{periodo.label | translate}}

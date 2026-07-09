@@ -1,7 +1,4 @@
-import { Injectable } from '@angular/core';
-
-@Injectable()
-export abstract class GlobalUtil {
+export class GlobalUtil {
 
   static PERIODO_1H = 1;
   static PERIODO_6H = 2;

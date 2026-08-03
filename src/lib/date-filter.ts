@@ -169,8 +169,8 @@ export class DateFilter implements OnInit {
   getDatasAtualizadas() {
     if (this.filtroPeriodo?.id !== GlobalUtil.PERIODO_INTERVALO) {
       const periodoAtualizado = GlobalUtil.getPeriods(new Date()).find(item => item.id === this.filtroPeriodo.id);
-      this.filtroPeriodo.dataInicio = periodoAtualizado.dataInicio;
-      this.filtroPeriodo.dataFim = periodoAtualizado.dataFim;
+      this.filtroPeriodo.dataInicio = periodoAtualizado?.dataInicio;
+      this.filtroPeriodo.dataFim = periodoAtualizado?.dataFim;
     }
     return this.filtroPeriodo;
   }

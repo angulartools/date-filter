@@ -1,19 +1,21 @@
 <div class="d-inline-flex">
   <div class="d-block">
     <button type="button" style="box-shadow: none; margin-top: 2px" mat-raised-button class="menuTrigger" [matMenuTriggerFor]="periodos_menu" [disabled]="loading || disabled">
-      @if (loading) {
-        <span class="ml-1 fa-1x">
-          <i class="fas fa-circle-notch fa-spin"></i>
-        </span>
+      <span class="menu-trigger-label">
+        @if (loading) {
+          <span class="ml-1 fa-1x">
+            <i class="fas fa-circle-notch fa-spin"></i>
+          </span>
+        }
+        {{'PERIODO' | translate}} <i class="fa fa-angle-down fa-xs"></i>
+      </span>
+      @if (filtroPeriodo?.id != null && filtroPeriodo?.id != PERIODO_INTERVALO) {
+        <span class="selected-period-label text-muted">{{filtroPeriodo?.label | translate}}</span>
       }
-      {{'PERIODO' | translate}} <i class="fa fa-angle-down fa-xs"></i>
+      @if (filtroPeriodo?.id != null && filtroPeriodo?.id === PERIODO_INTERVALO) {
+        <span class="selected-period-label text-muted">{{labelDataMaximaPossivel | translate }}</span>
+      }
     </button>
-    @if (filtroPeriodo?.id != null && filtroPeriodo?.id != PERIODO_INTERVALO) {
-      <div style="font-size: 12px; text-align: center; position: relative; top: -10px; margin-left: -15px;" class="text-muted">{{filtroPeriodo?.label | translate}}</div>
-    }
-    @if (filtroPeriodo?.id != null && filtroPeriodo?.id === PERIODO_INTERVALO) {
-      <div style="font-size: 12px; text-align: center; position: relative; top: -10px; margin-left: -15px;" class="text-muted">{{labelDataMaximaPossivel | translate }}</div>
-    }
   </div>
 
   @if (filtroPeriodo?.id === PERIODO_INTERVALO) {

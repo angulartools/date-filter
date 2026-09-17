@@ -36,4 +36,21 @@
 
 .menuTrigger {
   background-color: #FFFFFF !important;
+  height: auto;
+  min-height: 48px;
+  padding-bottom: 8px;
+  padding-top: 8px;
+}
+
+.menu-trigger-label {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.selected-period-label {
+  display: block;
+  font-size: 12px;
+  line-height: 16px;
+  text-align: center;
 }
